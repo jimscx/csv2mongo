@@ -2,7 +2,6 @@ var  mongodb = require('mongodb');
 var lineReader = require('line-reader');
 var encoding = require("encoding");
 var  server  = new mongodb.Server('localhost', 27017, {auto_reconnect:true});
-//连接的数据库为stock
 var  db = new mongodb.Db('test', server, {safe:true});
 
 db.open(function(err, db){
@@ -17,6 +16,7 @@ db.open(function(err, db){
             lineReader.eachLine('earthquack.csv', function(oneline, last) {
           
                 //console.log(last);
+                //做个中文转码避免中文乱码
                var line = encoding.convert(oneline,'utf-8','GB2312').toString('');
                //console.log(line)
                //将csv文件中2015/1/12 格式的时间转化为 20150112
